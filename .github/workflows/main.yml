@@ -1,0 +1,30 @@
+name: Build AlubaPVPMod
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set up JDK 8
+        uses: actions/setup-java@v3
+        with:
+          java-version: '8'
+          distribution: 'temurin'
+
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
+
+      - name: Build with Gradle
+        run: |
+          chmod +x gradlew
+          ./gradlew build
+        # Это запустит компиляцию твоего кода в JAR
+
+      - name: Upload Mod Jar
+        uses: actions/upload-artifact@v3
+        with:
+          name: AlubaPVPMod-File
+          path: build/libs/*.jar
