@@ -14,17 +14,15 @@ jobs:
           java-version: '8'
           distribution: 'temurin'
 
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v3
+      - name: Install Gradle
+        run: |
+          sudo apt-get install gradle -y
+          gradle wrapper --gradle-version 7.4.2
 
       - name: Build with Gradle
         run: |
-          # Если файла gradlew нет, мы его создадим прямо здесь
-          if [ ! -f gradlew ]; then
-            gradle wrapper --gradle-version 7.4.2
-          fi
           chmod +x gradlew
-          ./gradlew build
+          ./gradlew build --no-daemon
           
       - name: Upload Mod Jar
         uses: actions/upload-artifact@v4
