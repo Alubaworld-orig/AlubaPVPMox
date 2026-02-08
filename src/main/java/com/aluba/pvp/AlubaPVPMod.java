@@ -24,7 +24,9 @@ public class AlubaPVPMod {
     }
 
     private void clientSetup(final FMLClientSetupEvent event) {
-        // Сюда мы чуть позже впишем запуск Кольца и ХП врагов
-        LOGGER.info("AlubaPVPMod: Клиент готов к PVP!");
+        // Вот эти две строчки активируют твои функции!
+        MinecraftForge.EVENT_BUS.register(new PvpGraphics());
+        MinecraftForge.EVENT_BUS.register(new EnemyStats());
+        
+        LOGGER.info("AlubaPVPMod: Все функции успешно запущены!");
     }
-  }
